@@ -3,6 +3,12 @@ Translate Markdown document on [Google Translate](https://translate.google.com/)
 
 `translate-markdown` is a command line tool to translate your Markdown document on [Google Translate](https://translate.google.com/). It receives Markdown document from stdin and strips it to plain text, then open Google Translate with the plain text on a browser.
 
+## Install
+
+```
+$ npm install -g translate-markdown
+```
+
 ## Usage
 
 Please see `translate-markdown --help`.
