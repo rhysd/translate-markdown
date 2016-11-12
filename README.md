@@ -13,6 +13,8 @@ $ npm install -g translate-markdown
 
 Please see `translate-markdown --help`.
 
+![screen shot](https://github.com/rhysd/ss/blob/master/translate-markdown/main.gif?raw=true)
+
 ```
 $ translate-markdown [--help|--strip-only] {target lang}
 
