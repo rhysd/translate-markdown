@@ -27,7 +27,7 @@
   "homepage": "https://github.com/rhysd/translate-markdown#readme",
   "dependencies": {
     "hast-util-to-string": "^1.0.0",
-    "rehype-stringify": "^2.0.0",
+    "open": "0.0.5",
     "remark-parse": "^2.2.0",
     "remark-rehype": "^1.1.0",
     "unified": "^5.1.0"

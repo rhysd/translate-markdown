@@ -12,10 +12,19 @@ function stripMarkdown(doc) {
     return processor.process(doc).contents;
 }
 
-function translateMarkdown(doc) {
-    // TODO
-    return stripMarkdown(doc);
+function buildGoogleTranslateUrl(text, srcLang, distLang) {
+    if (!srcLang) {
+        srcLang = 'auto';
+    }
+    const encoded = encodeURIComponent(text);
+    return `https://translate.google.com/#${srcLang}/${distLang}/${encoded}`
+}
+
+function translateMarkdownUrl(doc, srcLang, distLang) {
+    const text = stripMarkdown(doc);
+    const url = buildGoogleTranslateUrl(text, srcLang, distLang);
+    return url;
 }
 
 exports.stripMarkdown = stripMarkdown;
-exports.translateMarkdown = translateMarkdown;
+exports.translateMarkdownUrl = translateMarkdownUrl;
