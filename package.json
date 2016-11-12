@@ -1,6 +1,6 @@
 {
   "name": "translate-markdown",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Translate markdown document from stdin",
   "main": "index.js",
   "bin": {
