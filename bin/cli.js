@@ -38,7 +38,9 @@ function parseArgv() {
     }
 
     if (strip_idx === -1 && argv.length <= 2) {
-        throw new Error('You must set the target language as argument of this command (e.g. "en" for English, "ja" for Japanese)');
+        return {
+            error: 'You must set the target language as argument of this command (e.g. "en" for English, "ja" for Japanese)'
+        };
     }
     return {
         lang: argv[2],
@@ -79,6 +81,11 @@ Options:
 `
     );
     process.exit(0);
+}
+
+if (opts.error) {
+    process.stderr.write(opts.error);
+    process.exit(125);
 }
 
 readFromStdin().then(input => {
