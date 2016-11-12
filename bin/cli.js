@@ -37,21 +37,30 @@ function parseArgv() {
         argv.splice(strip_idx, 1);
     }
 
-    if (strip_idx === -1 && argv.length <= 2) {
+    const apikey_idx = argv.indexOf('--apikey');
+    let apikey = undefined;
+    if (argv.length - 1 > apikey_idx && apikey_idx >= 0) {
+        apikey = argv[apikey_idx + 1];
+        argv.splice(apikey_idx, 2);
+    }
+
+    if (argv.length <= 2) {
         return {
             error: 'You must set the target language as argument of this command (e.g. "en" for English, "ja" for Japanese)'
         };
     }
+
     return {
         lang: argv[2],
-        strip: strip_idx >= 0
+        strip: strip_idx >= 0,
+        apikey,
     };
 }
 
 const opts = parseArgv();
 if (opts.help) {
     process.stderr.write(
-`$ translate-markdown [--help|--strip-only] {target lang}
+`$ translate-markdown [--help|--strip-only|--apikey {key}] {target lang}
 
     Translate Makrdown document from stdin.
 
@@ -75,6 +84,10 @@ Options:
         Strip markdown to plain text only. Stripped plain text is output to
         stdout.
 
+    --apikey {key}
+        Use Google Translate API isntead of opening a browser. The result text will
+        be output to stdout.
+
     --help
         Show this help.
 
@@ -91,6 +104,11 @@ if (opts.error) {
 readFromStdin().then(input => {
     if (opts.strip) {
         process.stdout.write(M.stripMarkdown(input));
+        return;
+    }
+
+    if (opts.apikey) {
+        process.stdout.write(M.translateMarkdownWithApi(input, null, opts.lang, opts.apikey));
         return;
     }
 

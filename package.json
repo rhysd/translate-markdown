@@ -26,6 +26,7 @@
   },
   "homepage": "https://github.com/rhysd/translate-markdown#readme",
   "dependencies": {
+    "google-translate": "^1.0.6",
     "hast-util-to-string": "^1.0.0",
     "open": "0.0.5",
     "remark-parse": "^2.2.0",
