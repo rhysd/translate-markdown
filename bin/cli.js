@@ -48,7 +48,36 @@ function parseArgv() {
 
 const opts = parseArgv();
 if (opts.help) {
-    console.log('TODO: HELP');
+    process.stderr.write(
+`$ translate-markdown [--help|--strip-only] {target lang}
+
+    Translate Makrdown document from stdin.
+
+Example:
+
+    Below receive Markdown text (README.md) from stdin and open a browser to
+    translate it in Google Translate.
+
+        $ cat README.md | translate-markdown ja
+
+    Note that there is restriction of the number of characters.
+
+Options:
+
+    {target lang}
+        Specify target language you want to translate. For example, 'en' is for
+        English and 'ja' is for Japanese. The language of markdown text is
+        automatically detected.
+
+    --strip-only
+        Strip markdown to plain text only. Stripped plain text is output to
+        stdout.
+
+    --help
+        Show this help.
+
+`
+    );
     process.exit(0);
 }
 
