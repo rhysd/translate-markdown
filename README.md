@@ -42,10 +42,12 @@ Options:
 
     --apikey {key}
         Use Google Translate API isntead of opening a browser. The result text will
-        be output to stdout.
+        be output to stdout. You can also use $TRANSLATE_MARKDOWN_APIKEY environment
+        variable to set a API key.
 
     --help
         Show this help.
+
 ```
 
 Features are also available from Node.js program. Please see [index.js](APIs in code).

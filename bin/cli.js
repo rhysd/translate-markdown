@@ -42,6 +42,8 @@ function parseArgv() {
     if (argv.length - 1 > apikey_idx && apikey_idx >= 0) {
         apikey = argv[apikey_idx + 1];
         argv.splice(apikey_idx, 2);
+    } else if (process.env.TRANSLATE_MARKDOWN_APIKEY) {
+        apikey = process.env.TRANSLATE_MARKDOWN_APIKEY;
     }
 
     if (argv.length <= 2) {
@@ -86,7 +88,8 @@ Options:
 
     --apikey {key}
         Use Google Translate API isntead of opening a browser. The result text will
-        be output to stdout.
+        be output to stdout. You can also use $TRANSLATE_MARKDOWN_APIKEY environment
+        variable to set a API key.
 
     --help
         Show this help.
