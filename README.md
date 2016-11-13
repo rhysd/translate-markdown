@@ -57,7 +57,7 @@ Features are also available from Node.js program. Please see [index.js](APIs in 
 ### Use from Vim
 
 ```vim
-function! s:translate_markdown() abort
+function! s:translate_markdown(lang) abort
     if &filetype !=# 'markdown'
         echoerr 'Not a Markdown buffer!'
     endif
@@ -83,10 +83,10 @@ function! s:translate_markdown() abort
         call setreg('g', save_reg_g, save_regtype_g)
     endtry
 
-    let result = system('translate-markdown ja', input)
+    let result = system('translate-markdown ' . a:lang, input)
     echo result
 endfunction
-command! -nargs=0 -range=% TranslateMarkdown call <SID>translate_markdown()<CR>
+command! -nargs=0 -range=% TranslateMarkdown call <SID>translate_markdown('en')<CR>
 ```
 
 Copy and paste above code to your `.vimrc`. Now `:TranslateMarkdown` command is available in visual mode and normal mode. Select the range you want to translate and execute `:TranslateMarkdown`, then Google Translate is opened with the selected text in browser.
