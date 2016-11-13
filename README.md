@@ -16,7 +16,7 @@ Please see `translate-markdown --help`.
 ![screen shot](https://github.com/rhysd/ss/blob/master/translate-markdown/main.gif?raw=true)
 
 ```
-$ translate-markdown [--help|--strip-only] {target lang}
+$ translate-markdown [--help|--strip-only|--apikey {key}] {target lang}
 
     Translate Makrdown document from stdin.
 
@@ -40,7 +40,58 @@ Options:
         Strip markdown to plain text only. Stripped plain text is output to
         stdout.
 
+    --apikey {key}
+        Use Google Translate API isntead of opening a browser. The result text will
+        be output to stdout.
+
     --help
         Show this help.
+```
+
+Features are also available from Node.js program. Please see [index.js](APIs in code).
+
+## Tips
+
+### Use from Vim
+
+```vim
+function! s:translate_markdown() abort
+    if &filetype !=# 'markdown'
+        echoerr 'Not a Markdown buffer!'
+    endif
+
+    if !executable('translate-markdown')
+        echoerr '`translate-markdown` command is not found!'
+    endif
+
+    let start = getpos("'<")
+    let end = getpos("'>")
+    let saved = getpos('.')
+
+    call setpos('.', start)
+    normal! v
+    call setpos('.', end)
+
+    let save_reg_g = getreg('g')
+    let save_regtype_g = getregtype('g')
+    try
+        normal! "gy
+        let input = getreg('g')
+    finally
+        call setreg('g', save_reg_g, save_regtype_g)
+    endtry
+
+    let result = system('translate-markdown ja', input)
+    echo result
+endfunction
+command! -nargs=0 -range=% TranslateMarkdown call <SID>translate_markdown()<CR>
+```
+
+Copy and paste above code to your `.vimrc`. Now `:TranslateMarkdown` command is available in visual mode and normal mode. Select the range you want to translate and execute `:TranslateMarkdown`, then Google Translate is opened with the selected text in browser.
+
+If you want to map the command to some key sequence, please use `:autocmd` and `:noremap`. Below maps `<Leader>T` to the command.
+
+```vim
+autocmd FileType markdown noremap <buffer><Leader>T :TranslateMarkdown<CR>
 ```
 
