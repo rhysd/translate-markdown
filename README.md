@@ -50,7 +50,7 @@ Options:
 
 ```
 
-Features are also available from Node.js program. Please see [index.js](APIs in code).
+Features are also available from Node.js program. Please see [APIs in code](index.js).
 
 ## Tips
 
@@ -68,7 +68,6 @@ function! s:translate_markdown(lang) abort
 
     let start = getpos("'<")
     let end = getpos("'>")
-    let saved = getpos('.')
 
     call setpos('.', start)
     normal! v
