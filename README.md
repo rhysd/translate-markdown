@@ -60,14 +60,17 @@ Features are also available from Node.js program. Please see [APIs in code](inde
 function! s:translate_markdown(lang) abort
     if &filetype !=# 'markdown'
         echoerr 'Not a Markdown buffer!'
+        return
     endif
 
     if !executable('translate-markdown')
         echoerr '`translate-markdown` command is not found!'
+        return
     endif
 
     let start = getpos("'<")
     let end = getpos("'>")
+    let saved = getpos('.')
 
     call setpos('.', start)
     normal! v
@@ -80,10 +83,10 @@ function! s:translate_markdown(lang) abort
         let input = getreg('g')
     finally
         call setreg('g', save_reg_g, save_regtype_g)
+        call setpos('.', saved)
     endtry
 
-    let result = system('translate-markdown ' . a:lang, input)
-    echo result
+    echo system('translate-markdown ' . a:lang, input)
 endfunction
 command! -nargs=0 -range=% TranslateMarkdown call <SID>translate_markdown('en')<CR>
 ```
